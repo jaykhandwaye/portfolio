@@ -1,26 +1,26 @@
 export const skills = [
   {
     name: "Video Editing",
-    percentage: 95
+    percentage: 85,
   },
   {
     name: "Motion Graphics",
-    percentage: 85
+    percentage: 65,
   },
   {
     name: "Color Grading",
-    percentage: 90
+    percentage: 70,
   },
   {
     name: "Audio Mixing",
-    percentage: 80
+    percentage: 65,
   },
   {
     name: "Storytelling",
-    percentage: 95
+    percentage: 80,
   },
   {
     name: "Video Optimization",
-    percentage: 85
-  }
+    percentage: 75,
+  },
 ];
