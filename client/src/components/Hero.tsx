@@ -60,7 +60,7 @@ export default function Hero() {
             <span className="text-primary">Video Editor & Videographer</span>
           </h1>
           
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-light mb-8 text-white/90">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-light mb-8 text-white/90 tracking-wide">
             Skilled Video Editor | Motion Graphics Specialist | Creative Storyteller
           </h2>
           
