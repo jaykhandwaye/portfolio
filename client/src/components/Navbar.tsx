@@ -70,6 +70,7 @@ export default function Navbar() {
             <NavItem href="#portfolio" isActive={activeSection === 'portfolio'}>Portfolio</NavItem>
             <NavItem href="#services" isActive={activeSection === 'services'}>Services</NavItem>
             <NavItem href="#testimonials" isActive={activeSection === 'testimonials'}>Testimonials</NavItem>
+            <NavItem href="/gallery">Gallery</NavItem>
             <Button asChild className="bg-accent text-white hover:bg-accent/90">
               <a href="#contact">Contact</a>
             </Button>
@@ -106,6 +107,9 @@ export default function Navbar() {
                   </SheetClose>
                   <SheetClose asChild>
                     <NavItem href="#testimonials">Testimonials</NavItem>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <NavItem href="/gallery">Gallery</NavItem>
                   </SheetClose>
                   <SheetClose asChild>
                     <Button asChild className="bg-accent text-white hover:bg-accent/90 w-full">
