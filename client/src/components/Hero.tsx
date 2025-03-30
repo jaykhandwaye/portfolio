@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
+import { ChevronDown, Download, Film, Play } from "lucide-react";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -21,7 +22,9 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-black/50">
+      {/* Video overlay with gradient */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/50 z-10"></div>
         <div className="absolute inset-0 overflow-hidden">
           {/* Video background */}
           <video
@@ -47,53 +50,53 @@ export default function Hero() {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-white max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-montserrat leading-tight mb-4">
-            <span className="block">Jay Khandwaye</span>
-            <span className="text-accent">Video Editor & Videographer</span>
+          <div className="inline-flex items-center gap-2 bg-primary/80 backdrop-blur-sm text-white py-2 px-4 rounded-full mb-6">
+            <Film className="h-4 w-4" />
+            <span className="text-sm font-medium">Professional Video Editor</span>
+          </div>
+          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4">
+            <span className="block mb-2">Jay Khandwaye</span>
+            <span className="text-primary">Video Editor & Videographer</span>
           </h1>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-light mb-8">
+          
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-light mb-8 text-white/90">
             Skilled Video Editor | Motion Graphics Specialist | Creative Storyteller
           </h2>
-          <p className="text-lg opacity-90 mb-8 max-w-2xl">
+          
+          <p className="text-lg text-white/80 mb-8 max-w-2xl">
             With over 5 years of experience crafting compelling visual stories, 
             I specialize in transforming raw footage into captivating narratives 
             that resonate with audiences and deliver on client objectives.
           </p>
+          
           <div className="flex flex-wrap gap-4">
             <Button
               asChild
-              className="bg-accent hover:bg-accent/90 text-white font-medium py-3 px-6 rounded-md transition-colors duration-300"
+              className="btn-primary"
             >
-              <a href="#portfolio">View My Work</a>
+              <a href="#portfolio" className="group flex items-center gap-2">
+                <span>View My Work</span>
+                <Play className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </a>
             </Button>
+            
             <Button
               asChild
               variant="outline"
-              className="bg-transparent hover:bg-white/10 text-white border border-white font-medium py-3 px-6 rounded-md transition-colors duration-300"
+              className="border-white hover:bg-white/10 text-white"
             >
               <a href="#contact">Get In Touch</a>
             </Button>
+            
             <Button
               asChild
               variant="outline"
-              className="bg-transparent hover:bg-white/10 text-white border border-white font-medium py-3 px-6 rounded-md transition-colors duration-300"
+              className="border-white hover:bg-white/10 text-white"
             >
-              <a href="/assets/documents/jay-khandwaye-cv.pdf" download>
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 mr-2 inline-block" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" 
-                  />
-                </svg>
-                Download CV
+              <a href="/assets/documents/jay-khandwaye-cv.pdf" download className="flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                <span>Download CV</span>
               </a>
             </Button>
           </div>
@@ -101,21 +104,12 @@ export default function Hero() {
       </div>
       
       <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-        <a href="#about" className="text-white animate-bounce">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-8 w-8"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
+        <a 
+          href="#about" 
+          className="flex flex-col items-center text-white group hover:text-primary transition-colors duration-300"
+        >
+          <span className="text-sm mb-2 opacity-80 group-hover:opacity-100">Scroll Down</span>
+          <ChevronDown className="h-6 w-6 animate-bounce" />
         </a>
       </div>
     </section>
