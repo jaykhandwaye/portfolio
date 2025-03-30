@@ -9,7 +9,10 @@ import { fromZodError } from "zod-validation-error";
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
+  phone: z.string().optional(),
   projectType: z.string().optional(),
+  budget: z.string().optional(),
+  deadline: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -31,10 +34,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         },
       });
       
-      // Format project type for email
-      const projectType = validatedData.projectType 
-        ? `Project Type: ${validatedData.projectType}` 
-        : "Project Type: Not specified";
+      // Format optional fields for email
+      const phone = validatedData.phone ? `Phone: ${validatedData.phone}` : null;
+      const projectType = validatedData.projectType ? `Project Type: ${validatedData.projectType}` : null;
+      const budget = validatedData.budget ? `Budget Range: ${validatedData.budget}` : null;
+      const deadline = validatedData.deadline ? `Project Timeline: ${validatedData.deadline}` : null;
       
       // Email content
       const mailOptions = {
@@ -44,18 +48,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         text: `
           Name: ${validatedData.name}
           Email: ${validatedData.email}
-          ${projectType}
+          ${phone ? phone + '\n' : ''}
+          ${projectType ? projectType + '\n' : ''}
+          ${budget ? budget + '\n' : ''}
+          ${deadline ? deadline + '\n' : ''}
           
           Message:
           ${validatedData.message}
         `,
         html: `
           <h2>New contact form submission</h2>
-          <p><strong>Name:</strong> ${validatedData.name}</p>
-          <p><strong>Email:</strong> ${validatedData.email}</p>
-          <p><strong>${projectType}</strong></p>
+          <div style="border-left: 4px solid #0070f3; padding-left: 15px; margin-bottom: 20px;">
+            <p><strong>Name:</strong> ${validatedData.name}</p>
+            <p><strong>Email:</strong> ${validatedData.email}</p>
+            ${phone ? `<p><strong>Phone:</strong> ${validatedData.phone}</p>` : ''}
+            ${projectType ? `<p><strong>Project Type:</strong> ${validatedData.projectType}</p>` : ''}
+            ${budget ? `<p><strong>Budget Range:</strong> ${validatedData.budget}</p>` : ''}
+            ${deadline ? `<p><strong>Project Timeline:</strong> ${validatedData.deadline}</p>` : ''}
+          </div>
           <p><strong>Message:</strong></p>
-          <p>${validatedData.message.replace(/\n/g, '<br>')}</p>
+          <p style="background-color: #f5f5f5; padding: 15px; border-radius: 4px;">${validatedData.message.replace(/\n/g, '<br>')}</p>
         `,
       };
       
