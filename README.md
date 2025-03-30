@@ -5,7 +5,7 @@ Access the website: The portfolio website is currently running on port 5000. In 
 Development workflow:
 
 The workflow named "Start application" is currently running
-It automatically serves your application via npm run dev
+It automatically serves your application via `npm run dev`
 The website will automatically reload when you make changes to the code
 If you want to restart the application:
 
@@ -15,8 +15,8 @@ For local development:
 
 If you want to run this locally outside of Replit, you'd need to:
 Clone the repository
-Run npm install to install dependencies
-Run npm run dev to start the development server
+Run `npm install` to install dependencies
+Run `npm run dev` to start the development server
 The application is fully functional with all sections displaying correctly, and I've fixed the issues with the Behance icon and other components. You can browse through the different sections of the portfolio website (Home, About, Portfolio, Services, etc.) to see Jay Khandwaye's video editing work.
 
 Would you like me to make any additional improvements or explain any specific part of the codebase in more detail?
