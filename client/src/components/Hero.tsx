@@ -1,16 +1,47 @@
 import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Play video when component mounts and handle autoplay issues
+    if (videoRef.current) {
+      const playVideo = async () => {
+        try {
+          await videoRef.current?.play();
+        } catch (err) {
+          console.error("Error playing video:", err);
+        }
+      };
+      
+      playVideo();
+    }
+  }, []);
+
   return (
-    <section id="home" className="relative h-screen flex items-center">
+    <section id="home" className="relative h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-black/50">
         <div className="absolute inset-0 overflow-hidden">
-          <div 
-            className="w-full h-full bg-center bg-cover bg-no-repeat"
-            style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080&q=80')"
-            }}
-          ></div>
+          {/* Video background */}
+          <video
+            ref={videoRef}
+            className="absolute h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            {/* Replace this with your actual video file path */}
+            <source src="/assets/hero-background.mp4" type="video/mp4" />
+            {/* Fallback background for browsers that don't support video */}
+            <div 
+              className="w-full h-full bg-center bg-cover bg-no-repeat"
+              style={{
+                backgroundImage: "url('https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080&q=80')"
+              }}
+            ></div>
+          </video>
         </div>
       </div>
       
