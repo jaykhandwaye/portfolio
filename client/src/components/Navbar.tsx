@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -13,29 +13,62 @@ interface NavItemProps {
 }
 
 function NavItem({ href, children, isActive, onClick }: NavItemProps) {
-  const [location, setLocation] = useLocation();
+  const [location, navigate] = useLocation();
+  
+  // Check if it's a hash link (#) or a regular route
+  const isHashLink = href.startsWith('#');
   
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setLocation(href);
-    if (onClick) onClick();
+    if (isHashLink) {
+      // For hash links, allow default browser behavior for smooth scrolling
+      // but also execute the onClick handler if provided
+      if (onClick) onClick();
+      
+      // Manually handle scrolling to section
+      if (href === '#home') {
+        e.preventDefault(); // prevent default for #home
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      // For regular routes, use wouter navigation
+      e.preventDefault();
+      navigate(href);
+      if (onClick) onClick();
+    }
   };
   
-  return (
-    <a
-      href={href}
-      onClick={handleClick}
-      className={`nav-link text-base font-medium py-2 ${
-        isActive ? "active" : ""
-      }`}
-    >
-      {children}
-    </a>
-  );
+  // Use different components based on the type of link
+  if (isHashLink) {
+    return (
+      <a
+        href={href}
+        onClick={handleClick}
+        className={`nav-link text-base font-medium py-2 ${
+          isActive ? "active" : ""
+        }`}
+      >
+        {children}
+      </a>
+    );
+  } else {
+    return (
+      <Link href={href}>
+        <a
+          className={`nav-link text-base font-medium py-2 ${
+            isActive ? "active" : ""
+          }`}
+          onClick={onClick}
+        >
+          {children}
+        </a>
+      </Link>
+    );
+  }
 }
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [location] = useLocation();
   const activeSection = useScrollSpy(['home', 'about', 'portfolio', 'services', 'testimonials', 'contact'], {
     threshold: 0.3,
     rootMargin: '-100px 0px 0px 0px'
@@ -57,14 +90,16 @@ export default function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center">
-            <Film className="text-primary w-8 h-8 mr-2" />
-            <h1 className="text-2xl font-bold text-primary">
-              <a href="#home" className="flex items-center">
-                JAY <span className="ml-1 text-gray-800">KHANDWAYE</span>
-              </a>
-            </h1>
-          </div>
+          <Link href="/">
+            <div className="flex items-center cursor-pointer">
+              <Film className="text-primary w-8 h-8 mr-2" />
+              <h1 className="text-2xl font-bold text-primary">
+                <span className="flex items-center">
+                  JAY <span className="ml-1 text-gray-800">KHANDWAYE</span>
+                </span>
+              </h1>
+            </div>
+          </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -74,12 +109,13 @@ export default function Navbar() {
             <NavItem href="#services" isActive={activeSection === 'services'}>Services</NavItem>
             <NavItem href="#testimonials" isActive={activeSection === 'testimonials'}>Testimonials</NavItem>
             <NavItem href="/gallery">Gallery</NavItem>
-            <Button asChild className="btn-primary">
-              <a href="#contact" className="flex items-center gap-2">
-                <span>Contact</span>
-                <Play className="w-4 h-4" />
-              </a>
-            </Button>
+            <a 
+              href="#contact" 
+              className="btn-primary rounded-md flex items-center gap-2 py-2 px-4 text-white"
+            >
+              <span>Contact</span>
+              <Play className="w-4 h-4" />
+            </a>
           </div>
           
           {/* Mobile Navigation */}
@@ -127,12 +163,13 @@ export default function Navbar() {
                   
                   <div className="mt-auto pt-6 pb-8">
                     <SheetClose asChild>
-                      <Button asChild className="btn-primary w-full">
-                        <a href="#contact" className="flex items-center justify-center gap-2">
-                          <span>Contact</span>
-                          <Play className="w-4 h-4" />
-                        </a>
-                      </Button>
+                      <a 
+                        href="#contact"
+                        className="btn-primary w-full rounded-md flex items-center justify-center gap-2 py-2 px-4 text-white"
+                      >
+                        <span>Contact</span>
+                        <Play className="w-4 h-4" />
+                      </a>
                     </SheetClose>
                   </div>
                 </div>

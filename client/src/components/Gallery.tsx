@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTrigger,
   DialogClose,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { 
   Select, 
@@ -221,6 +222,9 @@ export default function Gallery() {
                   </div>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-5xl bg-black/95 border-none p-0">
+                  <div className="sr-only" aria-hidden="true">
+                    <DialogTitle>{item.title} - {item.category}</DialogTitle>
+                  </div>
                   <div className="relative">
                     <img 
                       src={item.fullImage} 
