@@ -221,10 +221,9 @@ export default function Gallery() {
                     </div>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-5xl bg-black/95 border-none p-0">
-                  <div className="sr-only" aria-hidden="true">
-                    <DialogTitle>{item.title} - {item.category}</DialogTitle>
-                  </div>
+                <DialogContent className="sm:max-w-5xl bg-black/95 border-none p-0" aria-describedby={`desc-${item.id}`}>
+                  <DialogTitle className="sr-only">{item.title} - {item.category}</DialogTitle>
+                  <div id={`desc-${item.id}`} className="sr-only">Viewing high resolution version of {item.title} from {item.category} category</div>
                   <div className="relative">
                     <img 
                       src={item.fullImage} 

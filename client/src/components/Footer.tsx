@@ -1,6 +1,7 @@
 import { MapPin, Mail, Phone, Linkedin, Instagram, Youtube, Film, ArrowUp } from "lucide-react";
 import { FaBehanceSquare } from "react-icons/fa";
 import { Button } from "./ui/button";
+import { Link, useLocation } from "wouter";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -45,11 +46,20 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-6 text-white">Quick Links</h3>
             <ul className="space-y-3">
-              <li><a href="#home" className="text-gray-400 hover:text-primary transition-colors duration-300">Home</a></li>
+              <li>
+                <Link href="/">
+                  <span className="text-gray-400 hover:text-primary transition-colors duration-300 cursor-pointer">Home</span>
+                </Link>
+              </li>
               <li><a href="#about" className="text-gray-400 hover:text-primary transition-colors duration-300">About</a></li>
               <li><a href="#portfolio" className="text-gray-400 hover:text-primary transition-colors duration-300">Portfolio</a></li>
               <li><a href="#services" className="text-gray-400 hover:text-primary transition-colors duration-300">Services</a></li>
               <li><a href="#contact" className="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a></li>
+              <li>
+                <Link href="/gallery">
+                  <span className="text-gray-400 hover:text-primary transition-colors duration-300 cursor-pointer">Gallery</span>
+                </Link>
+              </li>
             </ul>
           </div>
           

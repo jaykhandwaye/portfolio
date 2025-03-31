@@ -51,16 +51,17 @@ function NavItem({ href, children, isActive, onClick }: NavItemProps) {
       </a>
     );
   } else {
+    // For non-hash links, use a Link that looks like an <a> tag
     return (
       <Link href={href}>
-        <a
-          className={`nav-link text-base font-medium py-2 ${
+        <span
+          className={`nav-link text-base font-medium py-2 cursor-pointer ${
             isActive ? "active" : ""
           }`}
           onClick={onClick}
         >
           {children}
-        </a>
+        </span>
       </Link>
     );
   }
